@@ -99,7 +99,7 @@ section {
     margin-top: 40px;
 }
 
-video {
+.scroll-video {
     max-width: 500px;
     width: 100%;
     border-radius: 15px;
@@ -109,7 +109,7 @@ video {
     transition: opacity 1s ease-out, transform 1s ease-out, box-shadow 1s ease-out;
 }
 
-video.visible {
+.scroll-video.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
@@ -129,7 +129,7 @@ video.visible {
         flex-direction: column;
     }
 
-    video {
+    .scroll-video {
         width: 90%;
     }
 }
@@ -146,28 +146,31 @@ video.visible {
 <section class="project-section">
     <h2 class="project-title">PROJEKT</h2>
     <div class="text">
-        öakdfhkadjfkasjfökaösdlkfjaölsdkjflaksdjfaölskdj
+        Hier präsentiere ich mein AI Games Projekt – klassische Spiele wie Pong und Vier Gewinnt, aufgewertet mit lernender KI.
     </div>
 </section>
 
+<!-- PONG -->
 <section class="flex-row">
     <div class="text">
         <h2>PONG gegen KI</h2>
-        Die KI beginnt bei 0 und lernt während dem Spiel.
+        <p>Die KI beginnt bei 0 und lernt während dem Spiel.</p>
     </div>
-    <video class="scroll-video" muted preload="auto" playsinline>
+    <video class="scroll-video" muted preload="auto" playsinline controls>
         <source src="assets/videos/pong.mp4" type="video/mp4">
+        Dein Browser unterstützt dieses Video nicht.
     </video>
 </section>
 
+<!-- VIER GEWINNT -->
 <section class="flex-row">
-    <video class="scroll-video" muted preload="auto" playsinline>
+    <video class="scroll-video" muted preload="auto" playsinline controls>
         <source src="assets/videos/connect-four.mp4" type="video/mp4">
+        Dein Browser unterstützt dieses Video nicht.
     </video>
     <div class="text">
         <h2>Vier Gewinnt</h2>
-        Hier kann man gegen eine unbesiegbare KI spielen.
-        Kannst du sie schlagen?
+        <p>Hier kann man gegen eine unbesiegbare KI spielen. Kannst du sie schlagen?</p>
     </div>
 </section>
 
