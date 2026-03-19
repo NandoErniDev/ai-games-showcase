@@ -4,10 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adaptive AI Games</title>
+<title>AI-Games</title>
 
 <style>
-*, *::before, *::after { box-sizing: border-box; }
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 
 body {
     margin: 0;
@@ -31,7 +33,6 @@ body {
     background: 
         linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
         url('assets/images/nebula.jpg') center center no-repeat;
-    background-size: cover;
 }
 
 .hero h1 {
@@ -72,6 +73,19 @@ section {
     transform: translateY(0) scale(1);
 }
 
+.project-section h2 {
+    font-size: clamp(40px, 8vw, 80px);
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.project-section h2.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -84,18 +98,17 @@ section {
     margin-top: 40px;
 }
 
-.scroll-video {
+video {
     max-width: 500px;
     width: 100%;
     border-radius: 15px;
     box-shadow: 0 0 40px rgba(128, 0, 255, 0.4), 0 0 80px rgba(0, 128, 255, 0.2);
-    object-fit: cover;
     opacity: 0;
     transform: translateY(20px) scale(0.95);
     transition: opacity 1s ease-out, transform 1s ease-out, box-shadow 1s ease-out;
 }
 
-.scroll-video.visible {
+video.visible {
     opacity: 1;
     transform: translateY(0) scale(1);
 }
@@ -108,17 +121,16 @@ section {
     color: black;
     text-decoration: none;
     font-weight: 600;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.button:hover {
-    transform: scale(1.05);
-    background: #eee;
 }
 
 @media (max-width: 900px) {
-    .flex-row { flex-direction: column; }
-    .scroll-video { width: 90%; }
+    .flex-row {
+        flex-direction: column;
+    }
+
+    video {
+        width: 90%;
+    }
 }
 </style>
 </head>
@@ -132,42 +144,73 @@ section {
 
 <section class="project-section">
     <h2 class="project-title">PROJEKT</h2>
-    <div class="text visible">
-        Hier präsentiere ich mein AI Games Projekt – klassische Spiele wie Pong und Vier Gewinnt, aufgewertet mit lernender KI.
+    <div class="text">
+        Webseite mit klassischen Spielen wie Pong oder Vier Gewinnt gegen KI. Cooles, modernes Design mit ein paar Animationen. Clean und übersichtlich.
     </div>
 </section>
 
-<!-- PONG -->
 <section class="flex-row">
-    <div class="text visible">
+    <div class="text">
         <h2>PONG gegen KI</h2>
-        <p>Die KI beginnt bei 0 und lernt während dem Spiel.</p>
+        Die KI beginnt bei 0 und lernt während dem Spiel.
     </div>
-    <video class="scroll-video visible" autoplay muted loop playsinline>
-        <source src="assets/videos/pong.mp4" type="video/mp4">
-        Dein Browser unterstützt dieses Video nicht.
+    <video class="scroll-video" muted preload="auto" playsinline>
+        <source src="pong.mp4" type="video/mp4">
     </video>
 </section>
 
-<!-- VIER GEWINNT -->
 <section class="flex-row">
-    <video class="scroll-video visible" autoplay muted loop playsinline>
-        <source src="assets/videos/connect-four.mp4" type="video/mp4">
-        Dein Browser unterstützt dieses Video nicht.
+    <video class="scroll-video" muted preload="auto" playsinline>
+       <source src="assets/videos/pong.mp4" type="video/mp4">
     </video>
-    <div class="text visible">
+    <div class="text">
         <h2>Vier Gewinnt</h2>
-        <p>Hier kann man gegen eine unbesiegbare KI spielen. Kannst du sie schlagen?</p>
+        Hier kann man gegen eine unbesiegbare KI spielen.
+        Kannst du sie schlagen?
     </div>
 </section>
 
 <section>
     <h2>Explore the Project</h2>
-    <div class="text visible">
+    <div class="text">
         Teste die Spiele selbst und sieh, wie sich die AI anpasst.
     </div>
     <a class="button" href="https://nandoernidev.github.io/ai-games/" target="_blank">Zum Projekt</a>
 </section>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const videos = document.querySelectorAll(".scroll-video");
+    const texts = document.querySelectorAll(".text");
+    const projectTitle = document.querySelector(".project-title");
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const el = entry.target;
+            if (entry.isIntersecting) {
+                if(el.tagName === 'VIDEO'){
+                    el.play();
+                    el.classList.add("visible");
+                } else {
+                    el.classList.add("visible");
+                }
+            } else {
+                if(el.tagName === 'VIDEO'){
+                    el.pause();
+                    el.currentTime = 0;
+                    el.classList.remove("visible");
+                } else {
+                    el.classList.remove("visible");
+                }
+            }
+        });
+    }, { threshold: 0.5 });
+
+    videos.forEach(v => observer.observe(v));
+    texts.forEach(t => observer.observe(t));
+    observer.observe(projectTitle);
+});
+</script>
 
 </body>
 </html>
